@@ -3,32 +3,34 @@ package com.example.demo.domain;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.validation.constraints.*;
 
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "DEPARTAMENTOS")
-public class Departamento extends AbstractEntity<Long>{
+public class Departamento extends AbstractEntity<Long> {
 
-	@Column(name = "nome", nullable = false, unique = true, length = 60)
-	private String nome;
-	
-	@OneToMany(mappedBy = "departamento")
-	private List<Cargo> cargos;
+  @NotBlank(message = "Informe um nome.")
+  @Size(min = 3, max = 60, message = "O nome do departamento deve ter entre {min} e {max} caracteres.")
+  @Column(name = "nome", nullable = false, unique = true, length = 60)
+  private String nome;
 
-	public String getNome() {
-		return nome;
-	}
+  @OneToMany(mappedBy = "departamento")
+  private List<Cargo> cargos;
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
+  public String getNome() {
+    return nome;
+  }
 
-	public List<Cargo> getCargos() {
-		return cargos;
-	}
+  public void setNome(String nome) {
+    this.nome = nome;
+  }
 
-	public void setCargos(List<Cargo> cargos) {
-		this.cargos = cargos;
-	}
-	
+  public List<Cargo> getCargos() {
+    return cargos;
+  }
+
+  public void setCargos(List<Cargo> cargos) {
+    this.cargos = cargos;
+  }
 }
